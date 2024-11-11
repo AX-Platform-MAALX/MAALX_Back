@@ -41,7 +41,7 @@ public class SecurityConfig {
         http
                 .csrf(csrf -> csrf.disable()) // REST API에서는 CSRF 보호 비활성화
                 .authorizeHttpRequests(authorizeRequests -> authorizeRequests
-                        .requestMatchers("/user/login", "/user/register").permitAll() // 회원가입, 로그인 엔드포인트는 인증 없이 접근 가능
+                        .requestMatchers("/user/login", "/user/register","/api/maal/sendRequest").permitAll() // 회원가입, 로그인 엔드포인트는 인증 없이 접근 가능
                         .anyRequest().authenticated() // 나머지 모든 요청은 인증 필요
                 )
                 // JWT 인증 필터를 UsernamePasswordAuthenticationFilter 앞에 추가하여 JWT 기반 인증 처리
