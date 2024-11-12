@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.Map;
 
 @RestController
@@ -28,11 +29,14 @@ public class UserController {
     // 회원가입 요청 처리
     @PostMapping("/register")
     public ResponseEntity<?> registerUser(@RequestBody UserRegistrationDto registrationDto) {
+        Map<String, String> response = new HashMap<>();
         if (userService.existsByEmail(registrationDto.getEmail())) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("이미 존재하는 이메일입니다.");
+            response.put("message", "이미 존재하는 이메일입니다.");
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(response);
         }
         userService.registerUser(registrationDto); // 회원가입 처리
-        return ResponseEntity.status(HttpStatus.CREATED).body("회원가입이 완료되었습니다.");
+        response.put("message", "회원가입이 완료되었습니다.");
+        return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
     // 로그인 요청 처리
