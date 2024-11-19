@@ -6,6 +6,8 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
+
 @Getter
 @Setter
 @AllArgsConstructor
@@ -18,7 +20,7 @@ public class UserAdditionalInfo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
@@ -27,9 +29,10 @@ public class UserAdditionalInfo {
     private double revenue;
     private String technologyField;
     private int employeeCount;
-    private double marketCap;
 
     private String consultingInterest;
     private String painPoint;
     private String preferredAITech;
+    private LocalDate date;  // 등록 날짜를 저장할 필드
+
 }

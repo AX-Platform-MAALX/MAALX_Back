@@ -8,6 +8,10 @@ import com.maalx_back.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Collections;
+import java.util.List;
+import java.util.stream.Collectors;
+
 @Service
 public class UserAdditionalInfoService {
 
@@ -20,29 +24,43 @@ public class UserAdditionalInfoService {
     public UserAdditionalInfo addOrUpdateAdditionalInfo(Long userId, UserAdditionalInfoDto additionalInfoDto) {
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
 
-        UserAdditionalInfo additionalInfo = additionalInfoRepository.findByUserUserId(userId);
-        if (additionalInfo == null) {
-            additionalInfo = new UserAdditionalInfo();
-            additionalInfo.setUser(user);
-        }
+        UserAdditionalInfo additionalInfo = new UserAdditionalInfo();
+        additionalInfo.setUser(user);
+
+//        UserAdditionalInfo additionalInfo = additionalInfoRepository.findByUserUserId(userId);
+//        if (additionalInfo == null) {
+//            additionalInfo = new UserAdditionalInfo();
+//            additionalInfo.setUser(user);
+//        }
 
         // 추가 정보 업데이트
         additionalInfo.setCompanyName(additionalInfoDto.getCompanyName());
         additionalInfo.setRevenue(additionalInfoDto.getRevenue());
         additionalInfo.setTechnologyField(additionalInfoDto.getTechnologyField());
         additionalInfo.setEmployeeCount(additionalInfoDto.getEmployeeCount());
-        additionalInfo.setMarketCap(additionalInfoDto.getMarketCap());
 
         additionalInfo.setConsultingInterest(additionalInfoDto.getConsultingInterest());
         additionalInfo.setPainPoint(additionalInfoDto.getPainPoint());
         additionalInfo.setPreferredAITech(additionalInfoDto.getPreferredAITech());
-
+        additionalInfo.setDate(additionalInfoDto.getDate());
         return additionalInfoRepository.save(additionalInfo);
     }
 
-    // User ID로 추가 정보 조회 및 DTO 변환 후 반환
+    // User ID로 추가 정보 전체 조회 및 DTO 변환 후 반환
+    public List<UserAdditionalInfoDto> getAdditionalInfos(Long userId) {
+        List<UserAdditionalInfo> additionalInfos = additionalInfoRepository.findAllByUserUserId(userId);
+
+        if (additionalInfos.isEmpty()) {
+            return Collections.emptyList();
+        }
+
+        // 엔티티 리스트를 DTO 리스트로 변환
+        return additionalInfos.stream()
+                .map(UserAdditionalInfoDto::new)
+                .collect(Collectors.toList());
+    }
     public UserAdditionalInfoDto getAdditionalInfo(Long userId) {
-        UserAdditionalInfo additionalInfo = additionalInfoRepository.findByUserUserId(userId);
+        UserAdditionalInfo additionalInfo = additionalInfoRepository.findOneByUserUserId(userId);
         if (additionalInfo == null) {
             return null;
         }

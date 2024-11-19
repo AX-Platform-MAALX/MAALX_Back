@@ -23,12 +23,11 @@ public class MaalService {
 
         // 프롬프트 데이터 설정
         String promptContent = String.format(
-                "%s 회사는  %s 분야에서 활동하는 기업으로, 매출액이 %.2f원에 달하며, 직원 수는 %d명입니다. 시가총액은 %.2f원으로, %s 분야에 관심을 가지고 있습니다. 이 기업은 %s라는 PainPoint를 겪고 있으며, %s이라는 AI 기술을 희망하고 있습니다.이 기업을 위한 컨설팅 조언을 주세요.",
+                "%s 회사는  %s 분야에서 활동하는 기업으로, 매출액이 %.2f원에 달하며, 직원 수는 %d명입니다. %s 분야에 관심을 가지고 있습니다. 이 기업은 %s라는 PainPoint를 겪고 있으며, %s이라는 AI 기술을 희망하고 있습니다.이 기업을 위한 컨설팅 조언을 주세요.",
                 additionalInfo.getCompanyName(),
                 additionalInfo.getTechnologyField(),
                 additionalInfo.getRevenue(),
                 additionalInfo.getEmployeeCount(),
-                additionalInfo.getMarketCap(),
                 additionalInfo.getConsultingInterest(),
                 additionalInfo.getPainPoint(),
                 additionalInfo.getPreferredAITech()
