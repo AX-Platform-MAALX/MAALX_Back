@@ -27,6 +27,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @Column(nullable = false)
+    private boolean isPremium = false; // 유료회원 여부
+
     public User(String email, String nickname, String password) {
         this.email = email;
         this.nickname = nickname;

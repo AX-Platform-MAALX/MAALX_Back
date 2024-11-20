@@ -58,4 +58,14 @@ public class UserService {
 
         return user;
     }
+
+    // 유료회원으로 전환
+    public void upgradeToPremium(String email) {
+        User user = userRepository.findByEmail(email);
+        if (user == null) {
+            throw new RuntimeException("User not found");
+        }
+        user.setPremium(true); // 유료회원 전환
+        userRepository.save(user);
+    }
 }

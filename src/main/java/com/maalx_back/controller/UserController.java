@@ -8,10 +8,7 @@ import com.maalx_back.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -48,5 +45,18 @@ public class UserController {
         }
         String token = jwtTokenProvider.generateToken(user); // JWT 토큰 발급
         return ResponseEntity.ok(Map.of("token", token)); // JWT 토큰 반환
+    }
+
+    // 유료회원 전환 요청 처리
+    @PostMapping("/upgrade")
+    public ResponseEntity<?> upgradeToPremium(@RequestHeader("Authorization") String authorizationHeader) {
+        try {
+            String token = authorizationHeader.replace("Bearer ", "");
+            User user = userService.authenticateUserByToken(token); // 토큰으로 사용자 인증
+            userService.upgradeToPremium(user.getEmail()); // 유료회원 전환
+            return ResponseEntity.ok(Map.of("message", "유료회원으로 전환되었습니다."));
+        } catch (RuntimeException e) {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
+        }
     }
 }
