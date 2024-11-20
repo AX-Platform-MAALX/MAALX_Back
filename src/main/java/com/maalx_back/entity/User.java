@@ -28,11 +28,19 @@ public class User {
     private String password;
 
     @Column(nullable = false)
-    private boolean isPremium = false; // 유료회원 여부
+    private Boolean isPremium = false; // 유료회원 여부
 
-    public User(String email, String nickname, String password) {
+    public User(String email, String nickname, String password,Boolean isPremium) {
         this.email = email;
         this.nickname = nickname;
         this.password = password;
+        this.isPremium=isPremium;
     }
+    public Boolean getPremium() {
+        return isPremium;
+    }
+    public void setPremium(Boolean isPremium) {
+        this.isPremium = isPremium;
+    }
+
 }
