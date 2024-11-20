@@ -32,7 +32,7 @@ public class ConsultingController {
         UserAdditionalInfoDto additionalInfo = additionalInfoService.getAdditionalInfo(user.getUserId());
 
         // MAAL API에 요청 보내기
-        String response = maalService.sendConsultingRequest(additionalInfo);
+        String response = maalService.sendConsultingRequest(additionalInfo, user.getUserId());
         return ResponseEntity.ok(response); // MAAL API 응답 반환
     }
 }
