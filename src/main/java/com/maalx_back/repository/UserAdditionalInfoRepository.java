@@ -11,4 +11,6 @@ public interface UserAdditionalInfoRepository extends JpaRepository<UserAddition
     UserAdditionalInfo findOneByUserUserId(Long userId);
     // 특정 사용자에 대한 모든 추가 정보 반환
     List<UserAdditionalInfo> findAllByUserUserId(Long userId);
+
+    Long countByUserUserId(Long userId);
 }

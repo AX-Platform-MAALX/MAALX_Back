@@ -26,13 +26,6 @@ public class UserAdditionalInfoService {
 
         UserAdditionalInfo additionalInfo = new UserAdditionalInfo();
         additionalInfo.setUser(user);
-
-//        UserAdditionalInfo additionalInfo = additionalInfoRepository.findByUserUserId(userId);
-//        if (additionalInfo == null) {
-//            additionalInfo = new UserAdditionalInfo();
-//            additionalInfo.setUser(user);
-//        }
-
         // 추가 정보 업데이트
         additionalInfo.setCompanyName(additionalInfoDto.getCompanyName());
         additionalInfo.setRevenue(additionalInfoDto.getRevenue());
@@ -66,5 +59,9 @@ public class UserAdditionalInfoService {
         }
         // UserAdditionalInfo 엔티티를 AdditionalInfoResponseDto로 변환
         return new UserAdditionalInfoDto(additionalInfo);
+    }
+    // userId로 UserAdditionalInfo의 총 개수 조회
+    public Long getAdditionalInfoCount(Long userId) {
+        return additionalInfoRepository.countByUserUserId(userId);
     }
 }

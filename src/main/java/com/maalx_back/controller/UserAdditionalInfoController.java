@@ -1,6 +1,7 @@
 package com.maalx_back.controller;
 
 import com.maalx_back.dto.UserAdditionalInfoDto;
+import com.maalx_back.dto.UserIdRequestDto;
 import com.maalx_back.entity.UserAdditionalInfo;
 import com.maalx_back.entity.User;
 import com.maalx_back.service.UserAdditionalInfoService;
@@ -63,5 +64,22 @@ public class UserAdditionalInfoController {
         }
 
         return ResponseEntity.ok(additionalInfos);
+    }
+    // 부가 정보의 총 개수 조회 (POST 방식으로 userId 전달)
+    @PostMapping("/count")
+    public ResponseEntity<Map<String, Object>> getAdditionalInfoCount(@RequestBody UserIdRequestDto userIdRequestDto) {
+        Map<String, Object> response = new HashMap<>();
+        try {
+            // userId 요청 데이터로 부가 정보의 총 개수 조회
+            Long count = additionalInfoService.getAdditionalInfoCount(userIdRequestDto.getUserId());
+
+            response.put("count", count);
+            return ResponseEntity.ok(response);
+
+        } catch (Exception e) {
+            response.put("message", "서버 오류");
+            response.put("error", e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
     }
 }
