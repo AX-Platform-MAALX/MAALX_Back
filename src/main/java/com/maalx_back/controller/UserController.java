@@ -48,6 +48,7 @@ public class UserController {
         response.put("token", token);
         response.put("userId", user.getUserId());  // userId 추가
         response.put("nickname", user.getNickname());  // nickname 추가
+        response.put("isPremium", user.getPremium());
         return ResponseEntity.ok(response);  // 로그인 정보와 함께 응답
     }
 

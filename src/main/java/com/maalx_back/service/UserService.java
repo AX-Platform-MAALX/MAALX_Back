@@ -30,8 +30,10 @@ public class UserService {
         User user = new User(
                 registrationDto.getEmail(),
                 registrationDto.getNickname(),
-                passwordEncoder.encode(registrationDto.getPassword())
-        );
+                passwordEncoder.encode(registrationDto.getPassword()),
+                registrationDto.isPremium() // 필드 이름을 수정했으므로 getPremium() 호출
+                );
+        System.out.println("isPremium in User: " + user.getPremium());  // User 엔티티에서 isPremium 값 확인
         userRepository.save(user);
     }
 
