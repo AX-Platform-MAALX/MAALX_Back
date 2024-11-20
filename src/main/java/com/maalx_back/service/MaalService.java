@@ -50,7 +50,6 @@ public class MaalService {
                 additionalInfo.getTechnologyField(),
                 additionalInfo.getRevenue(),
                 additionalInfo.getEmployeeCount(),
-                additionalInfo.getMarketCap(),
                 additionalInfo.getConsultingInterest(),
                 additionalInfo.getPainPoint(),
                 additionalInfo.getPreferredAITech()

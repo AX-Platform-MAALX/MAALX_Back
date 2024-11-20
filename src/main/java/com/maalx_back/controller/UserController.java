@@ -44,7 +44,11 @@ public class UserController {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("잘못된 이메일 또는 비밀번호입니다.");
         }
         String token = jwtTokenProvider.generateToken(user); // JWT 토큰 발급
-        return ResponseEntity.ok(Map.of("token", token)); // JWT 토큰 반환
+        Map<String, Object> response = new HashMap<>();
+        response.put("token", token);
+        response.put("userId", user.getUserId());  // userId 추가
+        response.put("nickname", user.getNickname());  // nickname 추가
+        return ResponseEntity.ok(response);  // 로그인 정보와 함께 응답
     }
 
     // 유료회원 전환 요청 처리
