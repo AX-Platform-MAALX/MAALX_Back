@@ -28,13 +28,13 @@ public class UserAdditionalInfoService {
         additionalInfo.setUser(user);
         // 추가 정보 업데이트
         additionalInfo.setCompanyName(additionalInfoDto.getCompanyName());
+        additionalInfo.setIndustry(additionalInfoDto.getIndustry());
         additionalInfo.setRevenue(additionalInfoDto.getRevenue());
-        additionalInfo.setTechnologyField(additionalInfoDto.getTechnologyField());
-        additionalInfo.setEmployeeCount(additionalInfoDto.getEmployeeCount());
-
-        additionalInfo.setConsultingInterest(additionalInfoDto.getConsultingInterest());
         additionalInfo.setPainPoint(additionalInfoDto.getPainPoint());
-        additionalInfo.setPreferredAITech(additionalInfoDto.getPreferredAITech());
+        additionalInfo.setDetailedIssue(additionalInfoDto.getDetailedIssue());
+        additionalInfo.setConsultingField(additionalInfoDto.getConsultingField());
+        additionalInfo.setAiNeeds(additionalInfoDto.getAiNeeds());
+        additionalInfo.setDetailedDemand(additionalInfoDto.getDetailedDemand());
         additionalInfo.setDate(additionalInfoDto.getDate());
         return additionalInfoRepository.save(additionalInfo);
     }

@@ -62,12 +62,25 @@ public class UserService {
     }
 
     // 유료회원으로 전환
-    public void upgradeToPremium(String email) {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
-            throw new RuntimeException("User not found");
-        }
-        user.setPremium(true); // 유료회원 전환
-        userRepository.save(user);
+//    public void upgradeToPremium(String email, Boolean isPremium) {
+//        User user = userRepository.findByEmail(email);
+//        if (user == null) {
+//            throw new RuntimeException("User not found");
+//        }
+//        user.setPremium(isPremium); // 전달된 isPremium 값으로 유료회원 상태 변경
+//        userRepository.save(user);
+//    }
+    // 유저 정보 업데이트
+    public void saveUser(User user) {
+        userRepository.save(user);  // User 객체를 저장하거나 업데이트
     }
+    // 유료회원으로 전환
+//    public void upgradeToPremium(String email) {
+//        User user = userRepository.findByEmail(email);
+//        if (user == null) {
+//            throw new RuntimeException("User not found");
+//        }
+//        user.setPremium(true); // 유료회원 전환
+//        userRepository.save(user);
+//    }
 }

@@ -26,13 +26,14 @@ public class UserAdditionalInfo {
 
     // 추가 정보 필드
     private String companyName;
+    private String industry;
     private double revenue;
-    private String technologyField;
-    private int employeeCount;
 
-    private String consultingInterest;
     private String painPoint;
-    private String preferredAITech;
+    private String detailedIssue;
+    private String consultingField;
+    private String aiNeeds;
+    private String detailedDemand;
     private LocalDate date;  // 등록 날짜를 저장할 필드
 
 }
