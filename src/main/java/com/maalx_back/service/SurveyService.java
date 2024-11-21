@@ -43,8 +43,10 @@ public class SurveyService {
         Survey survey = new Survey();
         survey.setConsultingResponse(consultingResponse);
         survey.setUser(user);
-        survey.setRating(surveyRequestDto.getRating());
-        survey.setFeedback(surveyRequestDto.getFeedback());
+        survey.setSatisfaction(surveyRequestDto.getSatisfaction());
+        survey.setDissatisfaction(surveyRequestDto.getDissatisfaction());
+        survey.setAgain(surveyRequestDto.getAgain());
+        survey.setAddition(surveyRequestDto.getAddition());
         survey.setCreatedAt(LocalDateTime.now());
 
         // 설문조사 저장
@@ -69,8 +71,10 @@ public class SurveyService {
         return new SurveyResponseDto(
                 survey.getId(),
                 survey.getConsultingResponse().getId(),
-                survey.getRating(),
-                survey.getFeedback(),
+                survey.getSatisfaction(),
+                survey.getDissatisfaction(),
+                survey.getAgain(),
+                survey.getAddition(),
                 survey.getCreatedAt()
         );
     }
