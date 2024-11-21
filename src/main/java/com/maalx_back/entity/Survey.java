@@ -29,11 +29,16 @@ public class Survey {
     @JoinColumn(name = "consulting_response_id", unique = true, nullable = false)
     private ConsultingResponse consultingResponse;  // 컨설팅 응답과 연결 (1:1 관계)
 
-    private Integer rating;  // 평점 (예: 1~5)
+    @Column(length = 1000)
+    private String satisfaction;  // 만족한점
 
     @Column(length = 1000)
-    private String feedback;  // 텍스트 응답 (자유롭게 작성 가능한 내용)
+    private String dissatisfaction;  // 불만족
 
+    private String again; //컨설팅 다시 할 의향
+
+    @Column(length = 1000)
+    private String addition;  // 추가적으로 다루고 싶은 점
     @CreatedDate
     private LocalDateTime createdAt;  // 설문조사 작성일
 }

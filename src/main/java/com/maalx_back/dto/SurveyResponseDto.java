@@ -11,10 +11,12 @@ import java.time.LocalDateTime;
 public class SurveyResponseDto {
     private Long id;
     private Long consultingResponseId;
-    private Integer rating;
-    private String feedback;
+    private String satisfaction;  // 만족한점
+    private String dissatisfaction;  // 불만족
+    private String again; //컨설팅 다시 할 의향
+    private String addition;  // 추가적으로 다루고 싶은 점
     private LocalDateTime createdAt;
 
-    public SurveyResponseDto(Long id, Long id1, Integer rating, String feedback, LocalDateTime createdAt) {
+    public SurveyResponseDto(Long id, Long id1, String satisfaction, String dissatisfaction, String again,String addition, LocalDateTime createdAt) {
     }
 }
