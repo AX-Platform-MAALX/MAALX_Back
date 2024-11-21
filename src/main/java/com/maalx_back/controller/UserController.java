@@ -2,6 +2,7 @@ package com.maalx_back.controller;
 
 import com.maalx_back.dto.UserLoginDto;
 import com.maalx_back.dto.UserRegistrationDto;
+import com.maalx_back.dto.UserUpgradeDto;
 import com.maalx_back.entity.User;
 import com.maalx_back.security.JwtTokenProvider;
 import com.maalx_back.service.UserService;
@@ -54,14 +55,31 @@ public class UserController {
 
     // 유료회원 전환 요청 처리
     @PostMapping("/upgrade")
-    public ResponseEntity<?> upgradeToPremium(@RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<?> upgradeToPremium(@RequestHeader("Authorization") String authorizationHeader, @RequestBody UserUpgradeDto upgradeDto) {
         try {
             String token = authorizationHeader.replace("Bearer ", "");
             User user = userService.authenticateUserByToken(token); // 토큰으로 사용자 인증
-            userService.upgradeToPremium(user.getEmail()); // 유료회원 전환
-            return ResponseEntity.ok(Map.of("message", "유료회원으로 전환되었습니다."));
+
+            // 기존 isPremium 값을 변경
+            user.setPremium(upgradeDto.isPremium()); // User 객체의 isPremium 값을 업데이트
+
+            userService.saveUser(user); // 업데이트된 User 객체 저장 (업데이트 로직은 UserService에서 처리)
+
+            return ResponseEntity.ok(Map.of("message", "유료회원 상태가 변경되었습니다."));
         } catch (RuntimeException e) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
         }
     }
+    // 유료회원 전환 요청 처리
+//    @PostMapping("/upgrade")
+//    public ResponseEntity<?> upgradeToPremium(@RequestHeader("Authorization") String authorizationHeader) {
+//        try {
+//            String token = authorizationHeader.replace("Bearer ", "");
+//            User user = userService.authenticateUserByToken(token); // 토큰으로 사용자 인증
+//            userService.upgradeToPremium(user.getEmail()); // 유료회원 전환
+//            return ResponseEntity.ok(Map.of("message", "유료회원으로 전환되었습니다."));
+//        } catch (RuntimeException e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(Map.of("error", e.getMessage()));
+//        }
+//    }
 }

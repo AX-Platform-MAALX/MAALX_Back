@@ -12,24 +12,26 @@ import java.time.LocalDate;
 @AllArgsConstructor
 public class UserAdditionalInfoDto {
     private String companyName;
+    private String industry;
     private double revenue;
-    private String technologyField;
-    private int employeeCount;
 
-    private String consultingInterest;
     private String painPoint;
-    private String preferredAITech;
+    private String detailedIssue;
+    private String consultingField;
+    private String aiNeeds;
+    private String detailedDemand;
     private LocalDate date;  // 등록 날짜를 저장할 필드
 
     // UserAdditionalInfo 엔티티에서 필요한 필드를 가져오는 생성자
     public UserAdditionalInfoDto(UserAdditionalInfo additionalInfo) {
         this.companyName = additionalInfo.getCompanyName();
+        this.industry = additionalInfo.getIndustry();
         this.revenue = additionalInfo.getRevenue();
-        this.technologyField = additionalInfo.getTechnologyField();
-        this.employeeCount = additionalInfo.getEmployeeCount();
-        this.consultingInterest = additionalInfo.getConsultingInterest();
         this.painPoint = additionalInfo.getPainPoint();
-        this.preferredAITech = additionalInfo.getPreferredAITech();
+        this.detailedIssue = additionalInfo.getDetailedIssue();
+        this.consultingField = additionalInfo.getPainPoint();
+        this.aiNeeds = additionalInfo.getAiNeeds();
+        this.detailedDemand=additionalInfo.getDetailedDemand();
         this.date=additionalInfo.getDate();
     }
 }
