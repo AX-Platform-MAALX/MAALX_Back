@@ -1,8 +1,6 @@
 package com.maalx_back.controller;
 
 import com.maalx_back.dto.UserAdditionalInfoDto;
-import com.maalx_back.dto.UserIdRequestDto;
-import com.maalx_back.entity.UserAdditionalInfo;
 import com.maalx_back.entity.User;
 import com.maalx_back.service.UserAdditionalInfoService;
 import com.maalx_back.service.UserService;
@@ -53,33 +51,17 @@ public class UserAdditionalInfoController {
 
     // 부가 정보 조회 (JWT 인증 필요)
     @GetMapping
-    public ResponseEntity<List<UserAdditionalInfoDto>> getAdditionalInfo(@RequestHeader("Authorization") String authorizationHeader) {
+    public ResponseEntity<UserAdditionalInfoDto> getAdditionalInfo(@RequestHeader("Authorization") String authorizationHeader) {
 
         // Authorization 헤더에서 "Bearer "를 제거하고 토큰으로 사용자 인증
         User user = userService.authenticateUserByToken(authorizationHeader.replace("Bearer ", ""));
 
-        List<UserAdditionalInfoDto> additionalInfos = additionalInfoService.getAdditionalInfos(user.getUserId());
-        if (additionalInfos.isEmpty()) {
-            return ResponseEntity.noContent().build();
+        UserAdditionalInfoDto responseDto = additionalInfoService.getAdditionalInfo(user.getUserId());
+        if (responseDto == null) {
+            return ResponseEntity.notFound().build();
         }
 
-        return ResponseEntity.ok(additionalInfos);
-    }
-    // 부가 정보의 총 개수 조회 (POST 방식으로 userId 전달)
-    @PostMapping("/count")
-    public ResponseEntity<Map<String, Object>> getAdditionalInfoCount(@RequestBody UserIdRequestDto userIdRequestDto) {
-        Map<String, Object> response = new HashMap<>();
-        try {
-            // userId 요청 데이터로 부가 정보의 총 개수 조회
-            Long count = additionalInfoService.getAdditionalInfoCount(userIdRequestDto.getUserId());
-
-            response.put("count", count);
-            return ResponseEntity.ok(response);
-
-        } catch (Exception e) {
-            response.put("message", "서버 오류");
-            response.put("error", e.getMessage());
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
-        }
+        // DTO를 반환
+        return ResponseEntity.ok(responseDto);
     }
 }
