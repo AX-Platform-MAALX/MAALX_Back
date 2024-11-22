@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class ConsultingService {
@@ -26,7 +27,9 @@ public class ConsultingService {
 
     @Autowired
     private UserRepository userRepository;
-
+    public List<ConsultingResponse> getConsultingByUserId(Long userId) {
+        return consultingResponseRepository.findByUser_UserId(userId);  // userId로 컨설팅 정보 조회
+    }
     public String sendConsultingRequest(UserAdditionalInfoDto additionalInfo, Long userId) {
         // 사용자 확인 및 존재 여부 검증
         User user = userRepository.findById(userId).orElseThrow(() -> new RuntimeException("User not found"));
