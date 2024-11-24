@@ -22,7 +22,7 @@ public class ConsultingResponse {
     @Column(columnDefinition = "TEXT", nullable = false)
     private String responseContent; // MAAL 응답 내용
 
-    @Column(nullable = false)
+    @Column(columnDefinition = "TEXT", nullable = false)
     private String promptContent; // 사용자가 보낸 프롬프트 내용
 
     @Column(nullable = false)
