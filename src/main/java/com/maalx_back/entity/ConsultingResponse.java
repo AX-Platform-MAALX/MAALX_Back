@@ -33,4 +33,7 @@ public class ConsultingResponse {
 
     @Column(nullable = false)
     private Boolean feedbackStatus = false; // 피드백
+
+    @Column(nullable = false)
+    private double revenue; // 해당 컨설팅을 받을 시의 매출액
 }

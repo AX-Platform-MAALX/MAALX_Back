@@ -78,6 +78,7 @@ public class ConsultingService {
         consultingResponse.setResponseContent(responseBody);
         consultingResponse.setPromptContent(inputContent);
         consultingResponse.setCreatedAt(LocalDateTime.now().toString());
+        consultingResponse.setRevenue(additionalInfo.getRevenue());
         consultingResponseRepository.save(consultingResponse); // DB에 저장
 
         // 응답 내용 반환
