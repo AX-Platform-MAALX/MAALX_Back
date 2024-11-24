@@ -75,4 +75,31 @@ public class ConsultingController {
         }
     }
 
+    @GetMapping("/revenues")
+    public ResponseEntity<?> getAllRevenues(@RequestHeader("Authorization") String authorizationHeader) {
+        try {
+            // 1. 사용자 인증
+            User user = userService.authenticateUserByToken(authorizationHeader.replace("Bearer ", ""));
+            if (user == null) {
+                return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 실패");
+            }
+
+            // 2. 해당 사용자의 모든 컨설팅 정보 조회
+            List<ConsultingResponse> userConsultings = consultingService.getConsultingByUserId(user.getUserId());
+            if (userConsultings.isEmpty()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("컨설팅 정보가 존재하지 않습니다.");
+            }
+
+            // 3. 모든 컨설팅의 revenue 값 추출
+            List<Double> revenues = userConsultings.stream()
+                    .map(ConsultingResponse::getRevenue)
+                    .toList();
+
+            // 4. revenue 리스트 반환
+            return ResponseEntity.ok(revenues);
+        } catch (Exception e) {
+            // 예외 처리
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류: " + e.getMessage());
+        }
+    }
 }
