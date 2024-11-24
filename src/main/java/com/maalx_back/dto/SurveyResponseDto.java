@@ -5,7 +5,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,6 +17,13 @@ public class SurveyResponseDto {
     private String addition;  // 추가적으로 다루고 싶은 점
     private LocalDate createdAt;
 
-    public SurveyResponseDto(Long id, Long id1, String satisfaction, String dissatisfaction, String again,String addition, LocalDate createdAt) {
+    public SurveyResponseDto(Long id, Long consultingResponseId, String satisfaction, String dissatisfaction, String again, String addition, LocalDate createdAt) {
+        this.id = id;
+        this.consultingResponseId = consultingResponseId;
+        this.satisfaction = satisfaction;
+        this.dissatisfaction = dissatisfaction;
+        this.again = again;
+        this.addition = addition;
+        this.createdAt = createdAt;
     }
 }

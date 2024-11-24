@@ -29,7 +29,7 @@ public class UserAdditionalInfoDto {
         this.revenue = additionalInfo.getRevenue();
         this.painPoint = additionalInfo.getPainPoint();
         this.detailedIssue = additionalInfo.getDetailedIssue();
-        this.consultingField = additionalInfo.getPainPoint();
+        this.consultingField = additionalInfo.getConsultingField();
         this.aiNeeds = additionalInfo.getAiNeeds();
         this.detailedDemand=additionalInfo.getDetailedDemand();
         this.date=additionalInfo.getDate();
