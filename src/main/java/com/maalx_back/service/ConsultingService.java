@@ -38,7 +38,7 @@ public class ConsultingService {
         int existingCount = consultingResponseRepository.countByUser_UserId(userId);
 
         // 코랩 API URL 설정
-        String url = "https://2eac-34-143-155-37.ngrok-free.app/generate_report";
+        String url = "https://9901-34-87-147-90.ngrok-free.app/generate_report";
 
         // 요청 헤더 구성
         HttpHeaders headers = new HttpHeaders();
@@ -46,8 +46,9 @@ public class ConsultingService {
 
         // 요청 Body에 들어갈 데이터 생성
         String inputContent = String.format(
-                "이 기업은 %s 분야에 속하고, 최근 3년 평균 매출액이 %.2f 원인 대한민국의 소기업이다. 주요 painpoint는 '%s'이다. " +
+                "%s기업은 %s 분야에 속하고, 최근 3년 평균 매출액이 %.2f 원인 대한민국의 소기업이다. 주요 painpoint는 '%s'이다. " +
                         "이 회사는 '%s'에 AI를 필요로 하고, '%s'에 대해 컨설팅 받기를 원한다. 이에 대한 컨설팅 전략은 무엇인가?",
+                additionalInfo.getCompanyName(),
                 additionalInfo.getIndustry(),
                 additionalInfo.getRevenue(),
                 additionalInfo.getPainPoint(),
@@ -77,7 +78,6 @@ public class ConsultingService {
         consultingResponse.setResponseContent(responseBody);
         consultingResponse.setPromptContent(inputContent);
         consultingResponse.setCreatedAt(LocalDateTime.now().toString());
-
         consultingResponseRepository.save(consultingResponse); // DB에 저장
 
         // 응답 내용 반환

@@ -7,7 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 
 @Entity
 @Setter
@@ -40,5 +40,5 @@ public class Survey {
     @Column(length = 1000)
     private String addition;  // 추가적으로 다루고 싶은 점
     @CreatedDate
-    private LocalDateTime createdAt;  // 설문조사 작성일
+    private LocalDate createdAt;  // 설문조사 작성일
 }

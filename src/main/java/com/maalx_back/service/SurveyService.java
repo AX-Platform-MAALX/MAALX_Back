@@ -11,6 +11,7 @@ import com.maalx_back.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Service
@@ -47,10 +48,13 @@ public class SurveyService {
         survey.setDissatisfaction(surveyRequestDto.getDissatisfaction());
         survey.setAgain(surveyRequestDto.getAgain());
         survey.setAddition(surveyRequestDto.getAddition());
-        survey.setCreatedAt(LocalDateTime.now());
+        survey.setCreatedAt(LocalDate.now());
 
         // 설문조사 저장
         surveyRepository.save(survey);
+        // ConsultingResponse의 feedbackStatus를 true로 설정
+        consultingResponse.setFeedbackStatus(true);
+        consultingResponseRepository.save(consultingResponse); // 업데이트된 상태 저장
 
         // 성공 메시지 반환
         return "설문조사가 완료되었습니다.";

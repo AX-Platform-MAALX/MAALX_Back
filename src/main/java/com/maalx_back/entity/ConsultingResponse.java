@@ -30,4 +30,7 @@ public class ConsultingResponse {
 
     @Column(nullable = false)
     private Integer consultingIndex; // 몇 번째 컨설팅인지 나타내는 순서
+
+    @Column(nullable = false)
+    private Boolean feedbackStatus = false; // 피드백
 }
