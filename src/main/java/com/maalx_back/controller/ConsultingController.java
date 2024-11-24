@@ -49,26 +49,23 @@ public class ConsultingController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류: " + e.getMessage());
         }
     }
-    //userId별 컨설팅 정보 가져오기
-    @GetMapping("/user/{userId}")
-    public ResponseEntity<?> getConsultingByUserId(
-            @PathVariable Long userId,
-            @RequestHeader("Authorization") String authorizationHeader) {
+    // userId를 경로 변수로 받지 않고, 토큰으로 인증된 사용자 기반으로 조회
+    @GetMapping()
+    public ResponseEntity<?> getConsulting(@RequestHeader("Authorization") String authorizationHeader) {
         try {
             // 사용자 인증
             User user = userService.authenticateUserByToken(authorizationHeader.replace("Bearer ", ""));
             if (user == null) {
                 return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("사용자 인증 실패");
             }
-            // 요청된 userId와 인증된 userId 비교
-            if (!user.getUserId().equals(userId)) {
-                return ResponseEntity.status(HttpStatus.FORBIDDEN).body("다른 사용자의 컨설팅 정보를 조회할 수 없습니다");
-            }
-            // 컨설팅 정보 조회
-            List<ConsultingResponse> consultings = consultingService.getConsultingByUserId(userId);
+
+            // 해당 사용자의 컨설팅 정보 조회
+            List<ConsultingResponse> consultings = consultingService.getConsultingByUserId(user.getUserId());
             if (consultings.isEmpty()) {
                 return ResponseEntity.noContent().build(); // 컨설팅 정보가 없을 경우
             }
+
+            // 컨설팅 정보 반환
             return ResponseEntity.ok(consultings);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("서버 오류: " + e.getMessage());
