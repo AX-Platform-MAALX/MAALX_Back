@@ -4,6 +4,7 @@ package com.maalx_back.dto;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Getter
@@ -15,8 +16,8 @@ public class SurveyResponseDto {
     private String dissatisfaction;  // 불만족
     private String again; //컨설팅 다시 할 의향
     private String addition;  // 추가적으로 다루고 싶은 점
-    private LocalDateTime createdAt;
+    private LocalDate createdAt;
 
-    public SurveyResponseDto(Long id, Long id1, String satisfaction, String dissatisfaction, String again,String addition, LocalDateTime createdAt) {
+    public SurveyResponseDto(Long id, Long id1, String satisfaction, String dissatisfaction, String again,String addition, LocalDate createdAt) {
     }
 }
