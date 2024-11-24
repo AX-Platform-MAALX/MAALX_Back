@@ -10,4 +10,5 @@ public interface ConsultingResponseRepository extends JpaRepository<ConsultingRe
     int countByUser_UserId(Long userId);
     List<ConsultingResponse> findByUser_UserId(Long userId);
 
+    ConsultingResponse findByUser_UserIdAndConsultingIndex(Long userId, int previousIndex);
 }
