@@ -76,7 +76,7 @@ public class ConsultingService {
         }
 
         // 코랩 API URL 설정
-        String url = "https://7aeb-34-124-171-177.ngrok-free.app/generate_report";
+        String url = "https://e565-35-238-201-184.ngrok-free.app/generate_report";
 
         // 요청 헤더 구성
         HttpHeaders headers = new HttpHeaders();
@@ -85,13 +85,15 @@ public class ConsultingService {
         // 요청 Body에 들어갈 데이터 생성
         String inputContent = String.format(
                 "%s기업은 %s 분야에 속하고, 최근 3년 평균 매출액이 %.2f 원인 대한민국의 소기업이다. 주요 painpoint는 '%s'이다. " +
-                        "이 회사는 '%s'에 AI를 필요로 하고, '%s'에 대해 컨설팅 받기를 원한다. 이에 대한 컨설팅 전략은 무엇인가? %s",
+                        "이 회사는 '%s'에 AI를 필요로 하고, '%s'에 대해 컨설팅 받기를 원한다. detailed issue는 %s 이고, 구체적인 요구사항은 %s 이다.이에 대한 컨설팅 전략은 무엇인가? %s",
                 additionalInfo.getCompanyName(),
                 additionalInfo.getIndustry(),
                 additionalInfo.getRevenue(),
                 additionalInfo.getPainPoint(),
                 additionalInfo.getAiNeeds(),
                 additionalInfo.getConsultingField(),
+                additionalInfo.getDetailedIssue(),
+                additionalInfo.getDetailedDemand(),
                 surveyContent // 이전 설문조사 내용 포함
         );
 
@@ -111,6 +113,17 @@ public class ConsultingService {
 
         // 응답 Body 추출
         String responseBody = response.getBody();
+
+        // 무료회원은 서론만 반환
+//        if (!user.getPremium()) {
+//            int introductionEndIndex = responseBody.indexOf("#### 2. 본론");
+//            if (introductionEndIndex != -1) {
+//                responseBody = responseBody.substring(0, introductionEndIndex).trim(); // 서론 내용만 추출
+//            } else {
+//                responseBody = "서론 정보가 없습니다."; // 서론만 추출에 실패할 경우 처리
+//            }
+//        }
+
 
         // 컨설팅 응답 내용을 DB에 저장
         ConsultingResponse consultingResponse = new ConsultingResponse();
